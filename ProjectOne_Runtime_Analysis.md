@@ -61,6 +61,16 @@ A hash table normally provides very fast insertion and lookup, but in the worst 
 
 A reasonably shaped binary search tree performs insertion efficiently, but an unbalanced tree can become skewed. In that worst case, each insertion may require traversing most of the existing tree.
 
+## Memory Analysis
+
+All three data structures require memory proportional to the number of courses stored, but they have different types of overhead.
+
+- **Vector — O(n):** A vector stores the course objects in a contiguous collection. Its primary memory use grows with the number of courses and their prerequisite lists. It has relatively low structural overhead, although the vector can reserve additional capacity as it grows.
+- **Hash Table — O(n + b):** The courses require O(n) memory, while the bucket array adds O(b) memory, where `b` is the number of buckets. Separate-chaining nodes used for collisions add pointer and node overhead. This can use more memory than a vector in exchange for faster average exact lookup.
+- **Binary Search Tree — O(n):** Each course is stored in a tree node that also contains left and right child pointers. The total storage grows linearly with the number of courses. Recursive traversal also uses call-stack space proportional to the tree height: typically O(log n) for a reasonably balanced tree and O(n) for a completely skewed tree.
+
+For this project, the differences in memory use are small because the ABCU course list is limited, but the comparison is still important when considering how each design would scale to a much larger catalog.
+
 ## Data-Structure Evaluation
 
 | Structure | Find One Course | Ordered Course List | Memory | Advantages | Disadvantages |
